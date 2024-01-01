@@ -2,7 +2,7 @@ package poker;
 
 import java.util.Random;
 
-public class Deck {
+public class DeckDealer {
     private final int DECK_SIZE = 52;
     private final int SHUFFLE_EXCHANGES = 2000;
     private final int HAND_SIZE = 5;

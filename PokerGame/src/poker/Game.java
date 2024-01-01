@@ -13,7 +13,7 @@ public class Game {
     
     HandlerHandJoker handlerJK= new HandlerHandJoker();
 
-	Deck deck = new Deck();
+	DeckDealer deck = new DeckDealer();
 	Player player = new Player(chipsPlayer);
     Player crupier = new Player(chipsPlayer);
    

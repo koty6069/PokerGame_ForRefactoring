@@ -111,7 +111,7 @@ public class Player {
      * 
      * @param integer $chips
      */
-	public Card[] draw(Deck deck)
+	public Card[] draw(DeckDealer deck)
 	{
 		Card[] hand = deck.deal();
         Arrays.sort(hand);
@@ -123,7 +123,7 @@ public class Player {
      * 
      * @param integer $chips
      */
-	public Card redraw(int counter, Deck deck)
+	public Card redraw(int counter, DeckDealer deck)
 	{
 		Card card = deck.redeal();
 		return card;
