@@ -15,8 +15,13 @@ public class Deck {
      * Fill deck with various cards
      * 
      */
-    public void fillDeck()
+    public void fillDeck(boolean hasJoker)
 	{
+    	if(hasJoker)
+    	{
+    		deck = new Card[DECK_SIZE + 2];
+    	}
+    	
 		int counter = 0;
 		for (int suit = 1; suit <= 4; suit++)
 		{
@@ -26,53 +31,33 @@ public class Deck {
 				counter++;
 			}
 		}
-	}
-
-    /**
-     * Fill deck with various cards
-     * 
-     * @param int numJokers
-     */
-    public Card[] fillDeckJoker(int jokers)
-	{
-        Card[] deckJoker = new Card[DECK_SIZE+jokers];
-		int counter = 0;
-		for (int suit = 1; suit <= 4; suit++)
+		
+		if(hasJoker) 
 		{
-			for (int value = 1; value <= 13; value++)
-			{
-				deckJoker[counter] = new Card(suit, value);
-				counter++;
-			}
+	        for(int counterJ=0; counterJ < 2; counterJ++){
+	            deck[counter]=new Card(0,0);
+	            counter++;
+	        }
 		}
-        for(int counterJ=0;counterJ<jokers;counterJ++){
-            deckJoker[counter]=new Card(0,0);
-            counter++;
-        }
-
-        //SHUFFLE
-        for (int x = 0; x <= SHUFFLE_EXCHANGES; x++)
-		{
-			int number1 = r.nextInt(DECK_SIZE+jokers);
-			int number2 = r.nextInt(DECK_SIZE+jokers);
-			Card temp = deckJoker[number1];
-			deckJoker[number1] = deckJoker[number2];
-			deckJoker[number2] = temp;
-		}
-
-        return deckJoker;
+		
+		this.shuffle(hasJoker);
 	}
 
     /**
      * Shuffle deck
      * 
      */
-    public void shuffle()
+    public void shuffle(boolean hasJoker)
 	{
+    	int offset = 0;
+    	if(hasJoker)
+    	{
+    		offset = 2;
+    	}
 		for (int x = 0; x <= SHUFFLE_EXCHANGES; x++)
 		{
-			int number1 = r.nextInt(DECK_SIZE);
-			int number2 = r.nextInt(DECK_SIZE);
+			int number1 = r.nextInt(DECK_SIZE + offset);
+			int number2 = r.nextInt(DECK_SIZE + offset);
 			Card temp = deck[number1];
 			deck[number1] = deck[number2];
 			deck[number2] = temp;

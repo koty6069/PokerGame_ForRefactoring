@@ -7,7 +7,7 @@ public class Game {
 
     // instantiates
 	final int HAND_SIZE = 5;
-    char joker='N';
+    boolean hasJoker = false;
     int chipsPlayer=1;
 	Scanner scan = new Scanner(System.in);
     
@@ -20,12 +20,15 @@ public class Game {
 
     public void play() throws InterruptedException
 	{
-        
+        char c = 'f';
         do{//Jokers or without jokers
             System.out.print("Would you like to play with 2 jokers?(Y/N): ");
-            char c = scan.next().charAt(0);            
-            joker= Character.toUpperCase(c);
-        }while (joker!='N' && joker!='Y');
+            c = Character.toUpperCase(scan.next().charAt(0));
+        }while (c != 'N' && c != 'Y');
+        if(c == 'Y')
+        {
+        	hasJoker = true;
+        }
         
         do{//Amount of chips
             System.out.print("How many chips would you like to play?: ");
@@ -40,25 +43,14 @@ for(int i=0;i<this.deck.getCards().length;i++){
     System.out.println(array[i].getValue()+ " // " + array[i].getSuit());
 }*/
 
-        if(joker=='Y'){
-            while (player.getChips() > 0 && crupier.getChips() >0){
-                //fill and shuffle deck
-                deck.setDeck(deck.fillDeckJoker(2));
-                //Start Game
-                this.startGame();
-            }
-                
-        }else{//Without jokers
-            while (player.getChips() > 0 && crupier.getChips() >0){
-                //fill deck
-                deck.fillDeck();
-                
-                //shuffle
-                deck.shuffle();
-                //Start game
-                this.startGame();
-            }
+        while (player.getChips() > 0 && crupier.getChips() >0)
+        {
+        	//Fill deck
+        	deck.fillDeck(hasJoker);
+        	//Start game
+        	this.startGame();
         }
+
         if(this.player.getChips()==0) System.out.println("THE WINNER IS CRUPIER!!");
             else System.out.println("YOU ARE THE WINNER!!");
 	}
