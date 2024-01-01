@@ -181,7 +181,6 @@ for(int i=0;i<this.deck.getCards().length;i++){
 
                 checkBet(highCardPlayer,highCardCrupier,pot);
             }else if(player==2){ //Double pair
-                
                 int valuePairPlayer = 0;
                 int valuePairCrupier = 0;
                 for(int counter = 1; counter < HAND_SIZE; counter++)

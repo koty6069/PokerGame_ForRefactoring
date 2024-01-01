@@ -22,8 +22,8 @@ public class Card implements Comparable<Card>{
      * @param integer $value
      */
     public Card(int suit, int value){
-        this.suit=suit;
-        this.value=value;
+        this.suit = suit;
+        this.value = value;
     }
 
     public String getDescription(){
@@ -51,7 +51,7 @@ public class Card implements Comparable<Card>{
      * @param integer $suit
      */
     public void setSuit(int suit){
-        this.suit=suit;
+        this.suit = suit;
     }
     /**
      * Set the value of this card

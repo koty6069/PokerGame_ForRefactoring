@@ -376,6 +376,28 @@ public class HandlerHandJoker {
         }
 		return false;
 	}
+	
+	public void printSuit(int suit)
+	{
+		switch(suit) {
+		case 1:
+			System.out.print(" Spades |");
+			break;
+		case 2:
+			System.out.print(" Hearts |");
+			break;
+		case 3:
+			System.out.print("Diamonds|");
+			break;
+		case 4:
+			System.out.print("  Clubs |");
+			break;
+		default:
+			System.out.print("  No suit |");
+			break;
+		}
+		System.out.println();
+	}
 
 
 	/**
@@ -385,82 +407,28 @@ public class HandlerHandJoker {
      */
 	public void display(Card card)
 	{
-        if(card.getValue()== 0){
+		int v = card.getValue();
+		switch(v) {
+		case 0:
 			System.out.println("|     JOKER      |");
-		}
-		if (card.getValue() == 1)
-		{
-			System.out.print("| Ace of ");
-		}
-		if (card.getValue() == 2)
-		{
-			System.out.print("| 2   of ");
-		}
-		if (card.getValue() == 3)
-		{
-			System.out.print("| 3   of ");
-		}
-		if (card.getValue() == 4)
-		{
-			System.out.print("| 4   of ");
-		}
-		if (card.getValue() == 5)
-		{
-			System.out.print("| 5   of ");
-		}
-		if (card.getValue() == 6)
-		{
-			System.out.print("| 6   of ");
-		}
-		if (card.getValue() == 7)
-		{
-			System.out.print("| 7   of ");
-		}
-		if (card.getValue() == 8)
-		{
-			System.out.print("| 8   of ");
-		}
-		if (card.getValue() == 9)
-		{
-			System.out.print("| 9   of ");
-		}
-		if (card.getValue() == 10)
-		{
+			break;
+		case 10:
 			System.out.print("| 10  of ");
-		}
-		if (card.getValue() == 11)
-		{
+			break;
+		case 11:
 			System.out.print("| J   of ");
-		}
-		if (card.getValue() == 12)
-		{
+			break;
+		case 12:
 			System.out.print("| Q   of ");
-		}
-		if (card.getValue() == 13)
-		{
+			break;
+		case 13:
 			System.out.print("| K   of ");
+			break;
+		default:
+			System.out.print("| " + v + "   of ");
+			break;
 		}
-		if (card.getSuit() == 1)
-		{
-			System.out.print(" Spades |");
-			System.out.println();
-		}
-		if (card.getSuit() == 2)
-		{
-			System.out.print(" Hearts |");
-			System.out.println();
-		}
-		if (card.getSuit() == 3)
-		{
-			System.out.print("Diamonds|");
-			System.out.println();
-		}
-		if (card.getSuit() == 4)
-		{
-			System.out.print("  Clubs |");
-			System.out.println();
-		}
-		
+		this.printSuit(card.getSuit());
 	}
 }
 
