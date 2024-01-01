@@ -1,7 +1,9 @@
 package poker;
 
 import java.util.Scanner;
+
 import java.util.Arrays;
+import poker.Evaluators.*;
 
 public class Game {
 
@@ -11,7 +13,7 @@ public class Game {
     int chipsPlayer=1;
 	Scanner scan = new Scanner(System.in);
     
-    HandlerHandJoker handlerJK= new HandlerHandJoker();
+    HandlerHandJoker handlerJK = new HandlerHandJoker();
 
 	DeckDealer deck = new DeckDealer();
 	Player player = new Player(chipsPlayer);
@@ -25,10 +27,7 @@ public class Game {
             System.out.print("Would you like to play with 2 jokers?(Y/N): ");
             c = Character.toUpperCase(scan.next().charAt(0));
         }while (c != 'N' && c != 'Y');
-        if(c == 'Y')
-        {
-        	hasJoker = true;
-        }
+        hasJoker = (c == 'Y') ? true : false;
         
         do{//Amount of chips
             System.out.print("How many chips would you like to play?: ");
@@ -37,11 +36,9 @@ public class Game {
         
         player.setChips(chipsPlayer);
         crupier.setChips(chipsPlayer);
+        
+        handlerJK.setEvaluator();
 
-/*Card[] array=this.deck.getCards();
-for(int i=0;i<this.deck.getCards().length;i++){
-    System.out.println(array[i].getValue()+ " // " + array[i].getSuit());
-}*/
         while (player.getChips() > 0 && crupier.getChips() >0)
         {
         	System.out.println();
@@ -160,21 +157,25 @@ for(int i=0;i<this.deck.getCards().length;i++){
      */
     public void checkBet(int player, int crupier, int pot){
         if(player != crupier){
-            winChips(this.player,pot);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             
-            if(player > crupier)
+            if(player > crupier) {
             	System.out.println("                YOU WIN");
-            else
+            	winChips(this.player, pot);
+            }
+            else {
             	System.out.println("              CRUPIER WIN");
+            	winChips(this.crupier, pot);
+            }
             
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         else{
+        	HighCardEvaluator eva = new HighCardEvaluator();
             if(player==1){ //Double highCard
                 //Get the each highCard
-                int highCardPlayer = handlerJK.highCard(this.player.getHand());
-                int highCardCrupier = handlerJK.highCard(this.crupier.getHand());
+                int highCardPlayer = eva.getHighCard(this.player.getHand());
+                int highCardCrupier = eva.getHighCard(this.crupier.getHand());
 
                 if(highCardPlayer==1) highCardPlayer=14; //High card is ace
                 if(highCardCrupier==1) highCardCrupier=14;
@@ -185,11 +186,11 @@ for(int i=0;i<this.deck.getCards().length;i++){
                 int valuePairCrupier = 0;
                 for(int counter = 1; counter < HAND_SIZE; counter++)
                 {
-                    if(handlerJK.existJoker(this.player.getHand())){//JokerHands
-                        valuePairPlayer= handlerJK.highCard(this.player.getHand());
+                    if(eva.existJoker(this.player.getHand())){//JokerHands
+                        valuePairPlayer= eva.getHighCard(this.player.getHand());
                     }
-                    if(handlerJK.existJoker(this.crupier.getHand())){//JokerHands
-                        valuePairCrupier= handlerJK.highCard(this.crupier.getHand());
+                    if(eva.existJoker(this.crupier.getHand())){//JokerHands
+                        valuePairCrupier= eva.getHighCard(this.crupier.getHand());
                     }
                     if (this.player.getHand()[counter - 1].getValue() == this.player.getHand()[counter].getValue())
                     {
