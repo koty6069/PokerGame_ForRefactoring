@@ -77,7 +77,7 @@ public class HandlerHandJoker {
      */
 	public int checkHand(Card[] hand)
 	{
-        System.out.println("PLAYER'S CARDS:");
+        System.out.println(" CARDS:");
 		for (int handCounter = 0; handCounter < HAND_SIZE; handCounter++)
 		{
 			this.display(hand[handCounter]);
@@ -87,7 +87,6 @@ public class HandlerHandJoker {
         System.out.println();
         return playerHand;
 	}
-	
 
     /**
      * Checks for a royal flush

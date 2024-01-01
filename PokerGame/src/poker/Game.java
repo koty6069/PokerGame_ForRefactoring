@@ -42,9 +42,11 @@ public class Game {
 for(int i=0;i<this.deck.getCards().length;i++){
     System.out.println(array[i].getValue()+ " // " + array[i].getSuit());
 }*/
-
         while (player.getChips() > 0 && crupier.getChips() >0)
         {
+        	System.out.println();
+            System.out.println("NEW TURN!");
+            System.out.println();
         	//Fill deck
         	deck.fillDeck(hasJoker);
         	//Start game
@@ -56,86 +58,86 @@ for(int i=0;i<this.deck.getCards().length;i++){
         else
         	System.out.println("YOU ARE THE WINNER!!");
 	}
+    
+    public void printChipResult(int player, int crupier) {
+        System.out.println("**********************************************");
+        System.out.println("Player's chips: "+ player);
+        System.out.println("Crupier's chips: "+ crupier);
+        System.out.println("**********************************************");
+    }
+    
+    public void printHandResult(Player player, Player crupier) {
+        System.out.println("SHOW CARDS...\n");
+        // evaluate the hand
+        System.out.print("Player: ");
+        handlerJK.evaluate(player.getHand());
+        System.out.print("Crupier: ");
+        handlerJK.evaluate(crupier.getHand());
+    }
 
     public void startGame() throws InterruptedException{
-        int pot=0;
+        int pot = 0;
         System.out.println("SHUFFLING...\n");
-            Thread.sleep(1000);
+        Thread.sleep(1000);
             
-            //players draws
-            player.setHand(deck.deal());
-            crupier.setHand(deck.deal());
+        //players draws
+        player.setHand(deck.deal());
+        crupier.setHand(deck.deal());
             
+        //Look our cards
+        System.out.print("PLAYER'S ");
+        int playerHand = handlerJK.checkHand(player.getHand());
 
-            //Look our cards
-            int playerHand = handlerJK.checkHand(player.getHand());
+        //Redraw new cards
+        System.out.print("Would you like to change some your cards?(1 for yes, 0 for no): ");
+        int redrawans = scan.nextInt();
+        if(redrawans >= 1){
+            this.redraw(this.player.getHand());
+            Arrays.sort(player.getHand());
+            System.out.print("NEW ");
+            playerHand = handlerJK.checkHand(player.getHand());
+        }
 
-            //Redraw new cards
-            System.out.print("Would you like to change some your cards?(1 for yes, 0 for no): ");
-            int redrawans = scan.nextInt();
-            if(redrawans >= 1){
-                this.redraw(this.player.getHand());
-                Arrays.sort(player.getHand());
-                playerHand = handlerJK.checkHand(player.getHand());
-            }
+        int answerBet = 0;
+        do{
+            //BET, CHECK OR HOLD
+            System.out.print("Would you like to bet (2), to check (1) or to hold (0)?: ");
+            answerBet = scan.nextInt();
+        }while(answerBet < 0 && answerBet > 2);
 
-            int answerBet=0;
-            do{
-                //BET, CHECK OR HOLD
-                System.out.print("Would you like to bet (2), to check (1) or to hold (0)?: ");
-                answerBet = scan.nextInt();
-            }while(answerBet<0 && answerBet>2);
-            
-
-
-            if(answerBet>0){
-                boolean chipCorrect=true;
-                if(answerBet==1) chipCorrect=false;
+        if(answerBet > 0){
+            boolean chipCorrect = true;
+            if(answerBet == 1) chipCorrect = false;
                 
-                while(chipCorrect){
-                    System.out.print("How many chips would you like to bet? ");
-                    int chips = scan.nextInt();
+            while(chipCorrect){
+                System.out.print("How many chips would you like to bet? ");
+                int chips = scan.nextInt();
                     
-                    if(chips <=0 || chips > player.getChips() || chips > crupier.getChips()){
-                        System.out.println("The amount entered is less than 0 or more than your token limit("+player.getChips()+ "/" +crupier.getChips()+"). Please try again");
-                    }else{
-                        player.bet(chips);
-                        crupier.bet(chips);
-                        pot= chips*2;
-                        chipCorrect=false;
-                    }
+                if(chips <=0 || chips > player.getChips() || chips > crupier.getChips()){
+                    System.out.println("The amount entered is less than 0 or more than your token limit("+player.getChips()+ "/" +crupier.getChips()+"). Please try again");
+                }else{
+                    player.bet(chips);
+                    crupier.bet(chips);
+                    pot = chips * 2;
+                    chipCorrect = false;
                 }
-            // display hand again
+            }
+            
+            // display crupier hand
             Thread.sleep(1000);
             System.out.println();
-            System.out.println("CRUPIER'S CARDS:");
-            handlerJK.checkHand(crupier.getHand());
-            System.out.println();
+            System.out.print("CRUPIER'S ");
+            int crupierHand = handlerJK.checkHand(crupier.getHand());
             Thread.sleep(1000);
             
-            System.out.println("SHOW CARDS...\n");
-            // evaluate the hand
-            System.out.print("Player: ");
-            playerHand = handlerJK.evaluate(player.getHand());
-            System.out.print("Crupier: ");
-            int crupierHand = handlerJK.evaluate(crupier.getHand());
+            this.printHandResult(player, crupier);
             Thread.sleep(1000);
-
-            checkBet(playerHand, crupierHand, pot);
-            
-
-            System.out.println("Player's chips: "+player.getChips());
-            System.out.println("Crupier's chips: "+crupier.getChips());
-            System.out.println("**********************************************");
-
-            }else if (answerBet == 0){
-                winChips(crupier,pot);
-            }
-
-            if(this.player.getChips() >0 && this.crupier.getChips() > 0){
-                System.out.println();
-                System.out.println("NEW TURN!");
-            }
+            this.checkBet(playerHand, crupierHand, pot);
+            this.printChipResult(player.getChips(), crupier.getChips());
+        }
+        else if (answerBet == 0){
+            winChips(crupier,pot);
+        }
     }
 
     /**
@@ -145,8 +147,8 @@ for(int i=0;i<this.deck.getCards().length;i++){
      * @param int pot
      */
     public void winChips(Player p, int pot){
-        int chipCounter =p.getChips();
-        p.setChips(chipCounter+pot);
+        int chipCounter = p.getChips();
+        p.setChips(chipCounter + pot);
     }
 
     /**
@@ -157,19 +159,17 @@ for(int i=0;i<this.deck.getCards().length;i++){
      * @param int pot
      */
     public void checkBet(int player, int crupier, int pot){
-        if(player > crupier){
+        if(player != crupier){
             winChips(this.player,pot);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("                YOU WIN");
+            
+            if(player > crupier)
+            	System.out.println("                YOU WIN");
+            else
+            	System.out.println("              CRUPIER WIN");
+            
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }  
-        else if(player < crupier){
-            winChips(this.crupier,pot);
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("              CRUPIER WIN");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
- 
-        } 
+        }
         else{
             if(player==1){ //Double highCard
                 //Get the each highCard
