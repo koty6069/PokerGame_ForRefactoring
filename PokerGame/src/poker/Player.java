@@ -6,7 +6,7 @@ public class Player {
     
     private int chips;
 
-    private String action;
+    private PlayerAction action;
 
     private Card[] hand;
 
@@ -22,8 +22,8 @@ public class Player {
      * @return integer
      */
     public int bet(int chips){
-        this.chips-=chips;
-        this.action="bet";
+        this.chips -= chips;
+        this.action = PlayerAction.BET;
         return chips;
     }
 
@@ -34,8 +34,8 @@ public class Player {
      * @return integer
      */
     public int raise(int chips){
-        this.chips-=chips;
-        this.action="raise";
+        this.chips -= chips;
+        this.action = PlayerAction.RAISE;
         return chips;
     }
 
@@ -44,7 +44,7 @@ public class Player {
      * 
      */
     public void check(){
-        this.action="check";
+        this.action = PlayerAction.CHECK;
     }
 
     /**
@@ -52,7 +52,7 @@ public class Player {
      * 
      */
     public void hold(){
-        this.action="hold";
+        this.action = PlayerAction.HOLD;
     }
 
 
@@ -78,7 +78,7 @@ public class Player {
      * @param integer $chips
      */
     public void setChips(int chips){
-        this.chips=chips;
+        this.chips = chips;
     }
     /**
      * Set the hand of this player
@@ -86,7 +86,7 @@ public class Player {
      * @param Card[] $hand
      */
     public void setHand(Card[] hand){
-        this.hand=hand;
+        this.hand = hand;
     }
 
     /**
@@ -94,7 +94,7 @@ public class Player {
      * 
      * @return Card[]
      */
-    public String getAction(){
+    public PlayerAction getAction(){
         return this.action;
     }
     /**
@@ -102,8 +102,8 @@ public class Player {
      * 
      * @param integer $chips
      */
-    public void setAction(String action){
-        this.action=action;
+    public void setAction(PlayerAction action){
+        this.action = action;
     }
 
     /**

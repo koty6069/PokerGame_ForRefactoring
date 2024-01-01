@@ -51,8 +51,10 @@ for(int i=0;i<this.deck.getCards().length;i++){
         	this.startGame();
         }
 
-        if(this.player.getChips()==0) System.out.println("THE WINNER IS CRUPIER!!");
-            else System.out.println("YOU ARE THE WINNER!!");
+        if(this.player.getChips()==0) 
+        	System.out.println("THE WINNER IS CRUPIER!!");
+        else
+        	System.out.println("YOU ARE THE WINNER!!");
 	}
 
     public void startGame() throws InterruptedException{
