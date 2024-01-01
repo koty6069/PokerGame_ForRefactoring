@@ -5,12 +5,6 @@ public abstract class Evaluator {
 	abstract public boolean evaluate(Card[] hand);
 	abstract public void info();
 	
-    /**
-     * Find joker in the hand
-     * 
-	 * @return boolean
-     * @param Card[] hand
-     */
 	public boolean existJoker(Card[] hand)
 	{
         if(hand[0].getValue()==0){

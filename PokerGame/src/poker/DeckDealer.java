@@ -95,20 +95,10 @@ public class DeckDealer {
 		restOfDeck = 10;
 	}
 
-    /**
-     * Set new deck with new cards
-     * 
-     * @param Card[] hand
-     */
     public void setDeck(Card[] deck){
         this.deck=deck;
     }
 
-    /**
-     * Retrieves the array of cards in this deck
-     * 
-     * @return Card[]
-     */
     public Card[] getCards()
     {
         return this.deck;

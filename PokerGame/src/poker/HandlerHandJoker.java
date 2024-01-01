@@ -80,12 +80,6 @@ public class HandlerHandJoker {
 		System.out.println();
 	}
 
-
-	/**
-     * Generates string for each card in hand
-     * 
-     * @param Card[] hand
-     */
 	public void display(Card card)
 	{
 		int v = card.getValue();
