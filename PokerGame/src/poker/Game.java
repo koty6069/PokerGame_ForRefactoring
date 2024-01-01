@@ -63,30 +63,20 @@ for(int i=0;i<this.deck.getCards().length;i++){
             Thread.sleep(1000);
             
             //players draws
-            player.setHand(player.draw(deck));
-            crupier.setHand(crupier.draw(deck));
+            player.setHand(deck.deal());
+            crupier.setHand(deck.deal());
             
 
             //Look our cards
-            System.out.println("PLAYER'S CARDS:");
-            handlerJK.checkHand(player.getHand());
-            System.out.println();
-            int playerHand = handlerJK.evaluate(player.getHand());
-            System.out.println();
+            int playerHand = handlerJK.checkHand(player.getHand());
 
             //Redraw new cards
             System.out.print("Would you like to change some your cards?(1 for yes, 0 for no): ");
             int redrawans = scan.nextInt();
-            if(redrawans>=1){
+            if(redrawans >= 1){
                 this.redraw(this.player.getHand());
-                //Look our new cards
-                System.out.println();
-                System.out.println("NEW PLAYER'S CARDS:");
                 Arrays.sort(player.getHand());
-                handlerJK.checkHand(player.getHand());
-                System.out.println();
-                playerHand = handlerJK.evaluate(player.getHand());
-                System.out.println();
+                playerHand = handlerJK.checkHand(player.getHand());
             }
 
             int answerBet=0;

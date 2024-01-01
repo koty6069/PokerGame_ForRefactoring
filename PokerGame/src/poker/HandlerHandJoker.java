@@ -75,12 +75,17 @@ public class HandlerHandJoker {
      * 
      * @param Card[] hand
      */
-	public void checkHand(Card[] hand)
+	public int checkHand(Card[] hand)
 	{
+        System.out.println("PLAYER'S CARDS:");
 		for (int handCounter = 0; handCounter < HAND_SIZE; handCounter++)
 		{
 			this.display(hand[handCounter]);
 		}
+        System.out.println();
+        int playerHand = this.evaluate(hand);
+        System.out.println();
+        return playerHand;
 	}
 	
 

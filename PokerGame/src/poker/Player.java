@@ -86,6 +86,7 @@ public class Player {
      * @param Card[] $hand
      */
     public void setHand(Card[] hand){
+    	Arrays.sort(hand);
         this.hand = hand;
     }
 
@@ -105,18 +106,6 @@ public class Player {
     public void setAction(PlayerAction action){
         this.action = action;
     }
-
-    /**
-     * Get 5 cards of the deck
-     * 
-     * @param integer $chips
-     */
-	public Card[] draw(DeckDealer deck)
-	{
-		Card[] hand = deck.deal();
-        Arrays.sort(hand);
-		return hand;
-	}
 
     /**
      * switches card for a new card
